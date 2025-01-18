@@ -9,3 +9,6 @@ Content-Type: application/json
     "content": "fsfdsfsfasdfdsf",
     "sender": "avicii"
 }
+
+### Get all posts
+GET http://localhost:3000/post
