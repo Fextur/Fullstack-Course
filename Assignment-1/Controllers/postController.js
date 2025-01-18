@@ -19,3 +19,26 @@ exports.getAllPosts = async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 };
+
+exports.getPostById = async (req, res) => {
+    try {
+        const post = await Post.findById(req.params.id);
+        if (!post) return res.status(404).json({ error: 'Post not found' });
+        res.status(200).json(post);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
+exports.getPostsBySender = async (req, res) => {
+    try {
+        const { sender } = req.query;
+        if (!sender) {
+            return res.status(400).json({ error: 'Sender ID is required' });
+        }
+        const posts = await Post.find({ sender });
+        res.status(200).json(posts);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};

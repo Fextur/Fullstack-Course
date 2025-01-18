@@ -12,3 +12,9 @@ Content-Type: application/json
 
 ### Get all posts
 GET http://localhost:3000/post
+
+### Get post by ID
+GET http://localhost:3000/post/678c3a68f52c7d6a357cd6ad
+
+### Get posts by Sender
+GET http://localhost:3000/post?sender=avicii
