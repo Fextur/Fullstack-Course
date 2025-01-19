@@ -14,7 +14,17 @@ Content-Type: application/json
 GET http://localhost:3000/post
 
 ### Get post by ID
-GET http://localhost:3000/post/678c3a68f52c7d6a357cd6ad
+GET http://localhost:3000/post/678c40ab24e6fc6017922d7f
 
 ### Get posts by Sender
 GET http://localhost:3000/post?sender=avicii
+
+### Update a post
+PUT http://localhost:3000/post/678c41b5a11c3892723ea22c
+Content-Type: application/json
+
+{
+    "title": "updated",
+    "content": "ouiouoiuoiuouio",
+    "sender": "avicii2"
+}
