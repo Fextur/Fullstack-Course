@@ -1,6 +1,10 @@
-const Comment = require('../Models/Comment');
+import Comment from "../Models/Comment";
+import { handleError } from "../utils";
+import { Request, Response } from 'express';
 
-exports.createComment = async (req, res) => {
+
+
+export const createComment = async (req: Request, res: Response): Promise<void> => {
     try {
         const { content, postId, sender } = req.body;
 
@@ -9,20 +13,20 @@ exports.createComment = async (req, res) => {
 
         res.status(201).json(comment);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(500).json({ error: handleError(err) });
     }
 };
 
-exports.getAllComments = async (req, res) => {
+export const getAllComments = async (req: Request, res: Response): Promise<void> => {
     try {
         const comments = await Comment.find();
         res.status(200).json(comments);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(500).json({ error: handleError(err) });
     }
 };
 
-exports.updateComment = async (req, res) => {
+export const updateComment = async (req: Request, res: Response): Promise<void> => {
     try {
         const { id } = req.params;
         const { content, sender } = req.body;
@@ -34,38 +38,40 @@ exports.updateComment = async (req, res) => {
         );
 
         if (!comment) {
-            return res.status(404).json({ error: 'Comment not found' });
+            res.status(404).json({ error: 'Comment not found' });
+            return;
         }
 
         res.status(200).json(comment);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(500).json({ error: handleError(err) });
     }
 };
 
-exports.deleteComment = async (req, res) => {
+export const deleteComment = async (req: Request, res: Response): Promise<void> => {
     try {
         const { id } = req.params;
 
         const comment = await Comment.findByIdAndDelete(id);
 
         if (!comment) {
-            return res.status(404).json({ error: 'Comment not found' });
+            res.status(404).json({ error: 'Comment not found' });
+            return;
         }
 
         res.status(200).json({ message: 'Comment deleted successfully' });
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(500).json({ error: handleError(err) });
     }
 };
 
-exports.getCommentsByPostId = async (req, res) => {
+export const getCommentsByPostId = async (req: Request, res: Response): Promise<void> => {
     try {
         const { postId } = req.params;
 
         const comments = await Comment.find({ postId });
         res.status(200).json(comments);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(500).json({ error: handleError(err) });
     }
 };
