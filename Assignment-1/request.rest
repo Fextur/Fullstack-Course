@@ -38,3 +38,18 @@ Content-Type: application/json
     "postId": "678c41b5a11c3892723ea22c",
     "sender": "not avicii"
 }
+
+### Get All Comments
+GET http://localhost:3000/comment
+
+### Update a Comment
+PUT http://localhost:3000/comment/678c4894abb7020017da2613
+Content-Type: application/json
+
+{
+    "content": "updated",
+    "sender": "not avicii2"
+}
+
+### Delete a Comment
+DELETE http://localhost:3000/comment/678c4894abb7020017da2613
