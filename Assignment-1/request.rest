@@ -53,3 +53,6 @@ Content-Type: application/json
 
 ### Delete a Comment
 DELETE http://localhost:3000/comment/678c4894abb7020017da2613
+
+### Get Comments by Post ID
+GET http://localhost:3000/comment/post/678c41b5a11c3892723ea22c
