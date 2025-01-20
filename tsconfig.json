@@ -1,14 +1,7 @@
 {
-  "compilerOptions": {
-      "module": "commonjs",
-      "target": "es6",
-      "outDir": "./dist",
-      "rootDir": "./src",
-      "strict": true,
-      "esModuleInterop": true,
-      "skipLibCheck": true
-  },
-  "files": ["src/types/express.d.ts"],
-  "include": ["src/**/*.ts"],
-  "exclude": ["node_modules", "dist"]
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ]
 }
