@@ -19,7 +19,6 @@ const router: Router = express.Router();
  *       required:
  *         - title
  *         - content
- *         - sender
  *       properties:
  *         id:
  *           type: string
@@ -30,14 +29,14 @@ const router: Router = express.Router();
  *         content:
  *           type: string
  *           description: The content of the post
- *         sender:
+ *         user:
  *           type: string
- *           description: The sender of the post
+ *           description: ID of the user who created the post
  *       example:
  *         id: "63f1a28e38d6b8a3a5f35a20"
  *         title: "First Post"
  *         content: "This is my first post."
- *         sender: "user123"
+ *         user: "63f1a28e38d6b8a3a5f35a10"
  */
 
 /**
@@ -46,12 +45,27 @@ const router: Router = express.Router();
  *   post:
  *     summary: Create a new post
  *     tags: [Posts]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Post'
+ *             type: object
+ *             required:
+ *               - title
+ *               - content
+ *             properties:
+ *               title:
+ *                 type: string
+ *                 description: The title of the post
+ *               content:
+ *                 type: string
+ *                 description: The content of the post
+ *             example:
+ *               title: "Sample Post"
+ *               content: "This is a test post."
  *     responses:
  *       201:
  *         description: The created post
@@ -80,28 +94,21 @@ const router: Router = express.Router();
 
 /**
  * @swagger
- * /post/sender:
+ * /post/user:
  *   get:
- *     summary: Retrieve posts by sender
+ *     summary: Retrieve posts by the logged-in user
  *     tags: [Posts]
- *     parameters:
- *       - in: query
- *         name: sender
- *         schema:
- *           type: string
- *         required: true
- *         description: The ID of the sender
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: A list of posts by the sender
+ *         description: A list of posts created by the authenticated user
  *         content:
  *           application/json:
  *             schema:
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/Post'
- *       400:
- *         description: Sender ID is missing
  */
 
 /**
@@ -134,6 +141,8 @@ const router: Router = express.Router();
  *   put:
  *     summary: Update a post by ID
  *     tags: [Posts]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -146,7 +155,18 @@ const router: Router = express.Router();
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Post'
+ *             type: object
+ *             required:
+ *               - title
+ *               - content
+ *             properties:
+ *               title:
+ *                 type: string
+ *               content:
+ *                 type: string
+ *             example:
+ *               title: "Updated Post"
+ *               content: "Updated content of the post."
  *     responses:
  *       200:
  *         description: The updated post

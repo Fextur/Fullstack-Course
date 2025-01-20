@@ -29,14 +29,14 @@ const router: Router = express.Router();
  *         postId:
  *           type: string
  *           description: The ID of the post the comment belongs to
- *         sender:
+ *         user:
  *           type: string
- *           description: The sender of the comment
+ *           description: ID of the user who created the comment
  *       example:
  *         id: "63f1a28e38d6b8a3a5f35a20"
  *         content: "This is a great post!"
  *         postId: "63f1a28e38d6b8a3a5f35a10"
- *         sender: "user123"
+ *         user: "63f1a28e38d6b8a3a5f35a10"
  */
 
 /**
@@ -45,12 +45,25 @@ const router: Router = express.Router();
  *   post:
  *     summary: Create a new comment
  *     tags: [Comments]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Comment'
+ *             type: object
+ *             required:
+ *               - content
+ *               - postId
+ *             properties:
+ *               content:
+ *                 type: string
+ *               postId:
+ *                 type: string
+ *             example:
+ *               content: "This is a test comment."
+ *               postId: "63f1a28e38d6b8a3a5f35a10"
  *     responses:
  *       201:
  *         description: The created comment
@@ -83,6 +96,8 @@ const router: Router = express.Router();
  *   put:
  *     summary: Update a comment by ID
  *     tags: [Comments]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -95,7 +110,14 @@ const router: Router = express.Router();
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Comment'
+ *             type: object
+ *             required:
+ *               - content
+ *             properties:
+ *               content:
+ *                 type: string
+ *             example:
+ *               content: "Updated comment content."
  *     responses:
  *       200:
  *         description: The updated comment
@@ -113,6 +135,8 @@ const router: Router = express.Router();
  *   delete:
  *     summary: Delete a comment by ID
  *     tags: [Comments]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -123,6 +147,8 @@ const router: Router = express.Router();
  *     responses:
  *       200:
  *         description: Comment deleted successfully
+ *       403:
+ *         description: User is not authorized to delete this comment
  *       404:
  *         description: Comment not found
  */
