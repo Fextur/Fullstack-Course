@@ -56,3 +56,29 @@ DELETE http://localhost:3000/comment/678c4894abb7020017da2613
 
 ### Get Comments by Post ID
 GET http://localhost:3000/comment/post/678c41b5a11c3892723ea22c
+
+### Register a New User
+POST http://localhost:3000/user/register
+Content-Type: application/json
+
+{
+  "username": "avicii",
+  "email": "galavishay.ga@gmail.com",
+  "password": "password123"
+}
+
+### Login a User
+POST http://localhost:3000/user/login
+Content-Type: application/json
+
+{
+  "email": "galavishay.ga@gmail.com",
+  "password": "password123"
+}
+
+### Refresh Token
+POST http://localhost:3000/user/refreshToken
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzhkOTU5NDY3ZGJkODBhNGZmYmJhZmEiLCJpYXQiOjE3MzczMzIxMjB9.VQrXwysKC99B_e6Wt2L_mv91q6vPG54alX2w9j8SxA4
+### Logout
+POST http://localhost:3000/user/logout
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzhkOTU5NDY3ZGJkODBhNGZmYmJhZmEiLCJpYXQiOjE3MzczMzIxNjd9.Lrm0pxpkVc0NXDJC9ZDQoj7CSGuN-KefFSqXWj0iiwM

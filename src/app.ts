@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import connectDB from './Config/db';
 import commentRoutes from './Routes/commentRoutes';
 import postRoutes from './Routes/postRoutes';
+import userRoutes from './Routes/userRoutes';
 import swaggerSpec from './swagger';
 import * as swaggerUI from 'swagger-ui-express';
 
@@ -20,6 +21,7 @@ app.get('/', (_req, res) => {
 });
 app.use('/post', postRoutes);
 app.use('/comment', commentRoutes);
+app.use('/user', userRoutes);
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
 
 export default app;

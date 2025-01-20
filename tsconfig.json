@@ -8,6 +8,7 @@
       "esModuleInterop": true,
       "skipLibCheck": true
   },
+  "files": ["src/types/express.d.ts"],
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "dist"]
 }
