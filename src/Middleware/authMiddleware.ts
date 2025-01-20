@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
+import { IUser } from "../Models/User";
 
 export const authenticate = (
   req: Request,
@@ -17,7 +18,7 @@ export const authenticate = (
       res.status(401).json({ error: "Invalid or expired token" });
       return;
     }
-    req.user = user;
+    req.user = (user as IUser)._id;
     next();
   });
 };

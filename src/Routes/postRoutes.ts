@@ -1,11 +1,12 @@
-import express, { Router } from 'express';
+import express, { Router } from "express";
 import {
-    createPost,
-    getAllPosts,
-    getPostById,
-    getPostsBySender,
-    updatePost,
-} from '../Controllers/postController';
+  createPost,
+  getAllPosts,
+  getPostById,
+  getPostsBySender,
+  updatePost,
+} from "../Controllers/postController";
+import { authenticate } from "../Middleware/authMiddleware";
 
 const router: Router = express.Router();
 
@@ -59,7 +60,6 @@ const router: Router = express.Router();
  *             schema:
  *               $ref: '#/components/schemas/Post'
  */
-router.post('/', createPost);
 
 /**
  * @swagger
@@ -77,7 +77,6 @@ router.post('/', createPost);
  *               items:
  *                 $ref: '#/components/schemas/Post'
  */
-router.get('/', getAllPosts);
 
 /**
  * @swagger
@@ -104,7 +103,6 @@ router.get('/', getAllPosts);
  *       400:
  *         description: Sender ID is missing
  */
-router.get('/sender', getPostsBySender);
 
 /**
  * @swagger
@@ -129,7 +127,6 @@ router.get('/sender', getPostsBySender);
  *       404:
  *         description: Post not found
  */
-router.get('/:id', getPostById);
 
 /**
  * @swagger
@@ -160,6 +157,11 @@ router.get('/:id', getPostById);
  *       404:
  *         description: Post not found
  */
-router.put('/:id', updatePost);
+
+router.post("/", authenticate, createPost);
+router.get("/", getAllPosts);
+router.get("/user", authenticate, getPostsBySender);
+router.get("/:id", getPostById);
+router.put("/:id", authenticate, updatePost);
 
 export default router;

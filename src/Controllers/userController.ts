@@ -74,7 +74,7 @@ export const refreshToken = async (
   req: Request,
   res: Response
 ): Promise<void> => {
-  const user = await User.findById(req.user._id);
+  const user = await User.findById(req.user);
   if (
     !user ||
     !user.tokens.includes(req.headers.authorization!.split(" ")[1])
@@ -101,7 +101,7 @@ export const refreshToken = async (
 };
 
 export const logout = async (req: Request, res: Response): Promise<void> => {
-  const user = await User.findById(req.user._id);
+  const user = await User.findById(req.user);
 
   if (!user) {
     res.sendStatus(404);

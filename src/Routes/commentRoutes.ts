@@ -1,11 +1,12 @@
-import express, { Router } from 'express';
+import express, { Router } from "express";
 import {
-    createComment,
-    getAllComments,
-    updateComment,
-    deleteComment,
-    getCommentsByPostId,
-} from '../Controllers/commentController';
+  createComment,
+  getAllComments,
+  updateComment,
+  deleteComment,
+  getCommentsByPostId,
+} from "../Controllers/commentController";
+import { authenticate } from "../Middleware/authMiddleware";
 
 const router: Router = express.Router();
 
@@ -58,7 +59,6 @@ const router: Router = express.Router();
  *             schema:
  *               $ref: '#/components/schemas/Comment'
  */
-router.post('/', createComment);
 
 /**
  * @swagger
@@ -76,7 +76,6 @@ router.post('/', createComment);
  *               items:
  *                 $ref: '#/components/schemas/Comment'
  */
-router.get('/', getAllComments);
 
 /**
  * @swagger
@@ -107,7 +106,6 @@ router.get('/', getAllComments);
  *       404:
  *         description: Comment not found
  */
-router.put('/:id', updateComment);
 
 /**
  * @swagger
@@ -128,7 +126,6 @@ router.put('/:id', updateComment);
  *       404:
  *         description: Comment not found
  */
-router.delete('/:id', deleteComment);
 
 /**
  * @swagger
@@ -155,6 +152,11 @@ router.delete('/:id', deleteComment);
  *       404:
  *         description: Post not found or no comments
  */
-router.get('/post/:postId', getCommentsByPostId);
+
+router.post("/", authenticate, createComment);
+router.get("/", getAllComments);
+router.put("/:id", authenticate, updateComment);
+router.delete("/:id", authenticate, deleteComment);
+router.get("/post/:postId", getCommentsByPostId);
 
 export default router;
