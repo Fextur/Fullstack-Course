@@ -15,7 +15,6 @@ const MainPage = () => {
   const [gameStatus, setGameStatus] = useState<Player | "DRAW" | null>(null);
 
   const updateGameStatus = (board: (Player | null)[]) => {
-    console.log(board);
     const winningCombinations = [
       [0, 1, 2],
       [3, 4, 5],
